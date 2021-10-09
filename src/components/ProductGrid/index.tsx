@@ -50,6 +50,7 @@ function ProductGrid() {
     
   }, [fetchError]);
 
+  // Currently showing first 12 items (@todo -> handle pagination)
   const maxProducts = 12;
   const productsToDisplay = selectedCategories.length 
     ? products.filter(p => selectedCategories.includes(p.category)).slice(0, maxProducts)
