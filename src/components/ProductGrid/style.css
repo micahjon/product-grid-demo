@@ -31,5 +31,18 @@
 }
 
 .product-grid__items {
-
+  display: grid;
+  grid-gap: 3rem 2rem ;
+  grid-template-columns: repeat(1, 1fr);
+  margin-bottom: 3rem;
+}
+@media (min-width: 600px) {
+  .product-grid__items {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 960px) {
+  .product-grid__items {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }

@@ -20,11 +20,16 @@
   content: "";
   display: block;
   width: 100%;
-  padding-bottom: 50%;
+  padding-bottom: 77%; /* 200 x 154 aspect ratio */
 }
 
 .product__quantity-in-cart {
   position: absolute;
   top: 0;
   left: 0;
+  background: lightgreen;
+  width: 1.5rem;
+  height: 1.5rem;
+  line-height: 1.5rem;
+  text-align: center;
 }
