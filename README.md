@@ -10,5 +10,5 @@ npm run dev
 ```
 
 ## Screenshots
-![Mobile view](./screenshot-mobile.png)
+<img src="./screenshot-mobile.png" alt="Mobile view" width="300">
 ![Desktop view](./screenshot-desktop.png)
