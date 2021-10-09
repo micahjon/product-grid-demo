@@ -1,0 +1,19 @@
+.product {
+  
+}
+
+.product__image-container {
+  width: 100%;
+  padding: 0;
+  margin: 0 0 1rem;
+
+  background: center no-repeat;
+  background-size: contain;
+}
+
+.product__image-container:before {
+  content: "";
+  display: block;
+  width: 100%;
+  padding-bottom: 50%;
+}
