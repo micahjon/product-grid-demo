@@ -94,6 +94,13 @@ function ProductGrid() {
                 [id]: cart[id] ? cart[id] + 1 : 1,
               })
             }}
+            onRemoveFromCart={() => {
+              const id = product.productId.value;
+              updateCart({
+                ...cart,
+                [id]: cart[id] ? cart[id] - 1 : 0,
+              })
+            }}
             {...product} 
           />
         )}

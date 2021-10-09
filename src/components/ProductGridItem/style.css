@@ -1,5 +1,10 @@
 .product {
-  
+  position: relative;
+  border: 1px solid var(--border-color);
+}
+
+.product--in-cart {
+  border-color: lightgreen;
 }
 
 .product__image-container {
@@ -16,4 +21,10 @@
   display: block;
   width: 100%;
   padding-bottom: 50%;
+}
+
+.product__quantity-in-cart {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
