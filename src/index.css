@@ -16,3 +16,9 @@ code {
 *, *:before, *:after {
   box-sizing: border-box;
 }
+
+body {
+  --page-header-height: 60px;
+  --border-color: rgba(215, 215, 215, 0.5);
+  --cart-sidebar-width: 372px;
+}
