@@ -22,6 +22,7 @@
 
 .product-grid__filter-choices {
   display: flex;
+  flex-wrap: wrap;
   margin-bottom: 2.5rem;
 }
 

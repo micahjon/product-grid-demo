@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Chip from '../Chip'
 import ProductGridItem from '../ProductGridItem'
 import './style.css'
@@ -11,33 +11,57 @@ type Product = {
   category: string
 }
 
-
-
 function ProductGrid() {
-  // Categories
-  const categories = ['Alcohol', 'Bakery']
-  const [selectedCategories, setSelectedCategories] = useState([] as string[])
-
   // Cart (map of product IDs to quantity)
   const [cart, updateCart] = useState({} as {[key: string]: number});
 
-  // Products (@todo -> fetch from API)
-  const [products, setProducts] = useState([
-    {
-      "productId": {
-        "value": "0d101385-3cdc-464b-8431-ec0b50618b8a"
-      },
-      "name": "Sir Kensington’s Organic Mayonnaise, 12 oz",
-      "imageUrl": "https://www.sirkensingtons.com/uploads/products/_product2x/SK-20-Render-Mayonnaise-Organic-12oz-Jar-FRONT-V02.png",
-      "category": 'Alcohol',
-      "price": 749,
-    }
-  ] as Product[]);
+  // Products
+  const [products, setProducts] = useState([] as Product[]);
+
+  // Categories
+  const [categories, setCategories] = useState([] as string[]);
+  const [selectedCategories, setSelectedCategories] = useState([] as string[])
+
+  // Fetch products from API (ideally we would abstract this out into a separate state machine)
+  const [isLoading, setLoading] = useState(false);
+  const [fetchError, setFetchError] = useState(undefined as any);
+
+  useEffect(() => {
+    if (isLoading || fetchError || products.length) return;
+
+    console.log('Fetching..')
+    setLoading(true);
+      fetch('/src/products.json').then(res => res.json()).then(
+        (products) => {
+          setProducts(products);
+          setCategories((products as Product[])
+            .map(p => p.category)
+            .filter(Boolean)
+            .filter((category, index, arr) => arr.indexOf(category) === index)
+          );
+        }, 
+        (error) => {
+          // Send this error to Sentry
+          console.error('Failed to fetch products', error)
+          // Ask user to re-try
+          setFetchError(error)
+        }, 
+      ).then(() => setLoading(false));
+    
+  }, [fetchError]);
 
   const maxProducts = 12;
   const productsToDisplay = selectedCategories.length 
     ? products.filter(p => selectedCategories.includes(p.category)).slice(0, maxProducts)
     : products.slice(0, maxProducts);
+
+  // Handle loading & error states
+  if (isLoading || fetchError) {
+    return <section className="product-grid">
+      {isLoading ? 'Loading...' : ''}
+      {fetchError ? <span>Unable to fetch products. Please try again <button onClick={() => setFetchError(undefined)}>Try Again</button></span> : ''}
+    </section>
+  }
 
   return (
     <section className="product-grid">
@@ -61,6 +85,7 @@ function ProductGrid() {
       <div className="product-grid__items">
         {productsToDisplay.map((product) => 
           <ProductGridItem 
+            key={product.productId.value}
             quantityInCart={cart[product.productId.value] || 0} 
             onAddToCart={() => {
               const id = product.productId.value;
