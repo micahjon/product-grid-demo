@@ -1,0 +1,34 @@
+.product-grid {
+  width: 100%;
+  padding: 0 3rem; 
+ }
+ 
+ @media (min-width: 960px) { 
+   .product-grid {
+     width: calc(100% - var(--cart-sidebar-width));
+     padding: 0 100px; 
+   }
+ }
+
+.product-grid__filter-heading {
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.product-grid__filter {
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.product-grid__filter-choices {
+  display: flex;
+  margin-bottom: 0.5rem;
+}
+
+.product-grid__filter-choice {
+  margin: 0 9px 9px 0;
+}
+
+.product-grid__items {
+
+}
